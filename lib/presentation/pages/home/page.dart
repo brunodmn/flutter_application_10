@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_10/models/subscriber.dart';
+import 'package:flutter_application_10/routes/routes.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../providers/current_subscriber_provider.dart';
@@ -30,7 +31,7 @@ class HomePage extends ConsumerWidget {
             Text('subscriber ${subscriberState.value} '),
             FilledButton(
                 onPressed: () {
-                  // SubscriberBillingRoute().go(context);
+                  HomeBillingsRoute().go(context);
                 },
                 child: const Text('billings'))
           ],

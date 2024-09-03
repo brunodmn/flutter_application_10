@@ -6,7 +6,7 @@ part of 'current_subscriber_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$currSubscriberHash() => r'e653f94a2f1c147d5f2dbfcbf62ca9aca4032e2f';
+String _$currSubscriberHash() => r'da4007616db1a3e23881e56c8c553b337fba69e7';
 
 /// See also [CurrSubscriber].
 @ProviderFor(CurrSubscriber)

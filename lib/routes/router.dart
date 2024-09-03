@@ -27,6 +27,13 @@ GoRouter router(RouterRef ref) {
       }
       if (appState is AsyncData) {
         final subscriberState = ref.watch(currSubscriberProvider);
+        final matchedLocation = state.matchedLocation;
+
+        final isHome = matchedLocation.startsWith(HomeRoute().location);
+        print('matchedLocation ${state.matchedLocation}');
+        print('isHome $isHome');
+
+        if (isHome) return null;
         if (subscriberState is AsyncData) {
           return HomeRoute().location;
         }

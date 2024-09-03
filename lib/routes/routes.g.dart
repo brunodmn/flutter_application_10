@@ -14,6 +14,12 @@ List<RouteBase> get $appRoutes => [
 RouteBase get $homeRoute => GoRouteData.$route(
       path: '/home',
       factory: $HomeRouteExtension._fromState,
+      routes: [
+        GoRouteData.$route(
+          path: 'billings',
+          factory: $HomeBillingsRouteExtension._fromState,
+        ),
+      ],
     );
 
 extension $HomeRouteExtension on HomeRoute {
@@ -33,12 +39,30 @@ extension $HomeRouteExtension on HomeRoute {
   void replace(BuildContext context) => context.replace(location);
 }
 
+extension $HomeBillingsRouteExtension on HomeBillingsRoute {
+  static HomeBillingsRoute _fromState(GoRouterState state) =>
+      HomeBillingsRoute();
+
+  String get location => GoRouteData.$location(
+        '/home/billings',
+      );
+
+  void go(BuildContext context) => context.go(location);
+
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  void replace(BuildContext context) => context.replace(location);
+}
+
 RouteBase get $rootRoute => GoRouteData.$route(
       path: '/',
       factory: $RootRouteExtension._fromState,
       routes: [
         GoRouteData.$route(
-          path: 'loadig',
+          path: 'loading',
           factory: $LoadingRouteExtension._fromState,
         ),
         GoRouteData.$route(
@@ -69,7 +93,7 @@ extension $LoadingRouteExtension on LoadingRoute {
   static LoadingRoute _fromState(GoRouterState state) => LoadingRoute();
 
   String get location => GoRouteData.$location(
-        '/loadig',
+        '/loading',
       );
 
   void go(BuildContext context) => context.go(location);

@@ -2,12 +2,14 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_application_10/presentation/pages/home/page.dart';
 import 'package:go_router/go_router.dart';
 import '../presentation/pages/error/page.dart';
+import '../presentation/pages/home/billings/page.dart';
 import '../presentation/pages/loading/page.dart';
 
 part 'routes.g.dart';
 
 //* subscriber route [START]
-@TypedGoRoute<HomeRoute>(path: '/home')
+@TypedGoRoute<HomeRoute>(
+    path: '/home', routes: [TypedGoRoute<HomeBillingsRoute>(path: 'billings')])
 @immutable
 class HomeRoute extends GoRouteData {
   @override
@@ -16,19 +18,19 @@ class HomeRoute extends GoRouteData {
   }
 }
 
-// @immutable
-// class SubscriberBillingRoute extends GoRouteData {
-//   @override
-//   Widget build(BuildContext context, GoRouterState state) {
-//     return const SubscriberBillingPage();
-//   }
-// }
+@immutable
+class HomeBillingsRoute extends GoRouteData {
+  @override
+  Widget build(BuildContext context, GoRouterState state) {
+    return const HomeBillingsPage();
+  }
+}
 //* subscriber route [END]
 
 //* ROOT route [START]
 @TypedGoRoute<RootRoute>(path: '/', routes: [
   TypedGoRoute<LoadingRoute>(
-    path: 'loadig',
+    path: 'loading',
   ),
   TypedGoRoute<ErrorRoute>(
     path: 'error',

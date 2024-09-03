@@ -21,4 +21,18 @@ class CurrSubscriber extends _$CurrSubscriber {
         .read(fakeSubscriberRepositoryProvider)
         .fetchSubscriber('', document: '');
   }
+
+  Future<void> fetchBillings() async {
+    state = const AsyncLoading();
+    if (state.value == null) {
+      state = AsyncValue.error('subscriber is null', StackTrace.current);
+    }
+
+    state = await AsyncValue.guard(() async {
+      final billings = await ref
+          .read(fakeSubscriberRepositoryProvider)
+          .fetchSubscriberBillings('');
+      return state.value!.copyWith(billings: billings);
+    });
+  }
 }
