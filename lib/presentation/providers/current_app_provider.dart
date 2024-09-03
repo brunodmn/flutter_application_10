@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter_application_10/repositories/fake_app_repository.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -9,6 +10,10 @@ part 'current_app_provider.g.dart';
 class CurrAppProvider extends _$CurrAppProvider {
   @override
   FutureOr<App> build() {
+    debugPrint('[CurrAppProvider] initialized...');
+    ref.onDispose(() {
+      debugPrint('[CurrAppProvider] disposed');
+    });
     return _fetchApp();
   }
 

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_application_10/presentation/pages/error/page.dart';
 import 'package:flutter_application_10/presentation/providers/current_app_provider.dart';
+import 'package:flutter_application_10/presentation/providers/current_subscriber_provider.dart';
 import 'package:go_router/go_router.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -25,7 +26,16 @@ GoRouter router(RouterRef ref) {
         return ErrorRoute(message: appState.error.toString()).location;
       }
       if (appState is AsyncData) {
-        return HomeRoute().location;
+        final subscriberState = ref.watch(currSubscriberProvider);
+        if (subscriberState is AsyncData) {
+          return HomeRoute().location;
+        }
+        if (subscriberState is AsyncLoading) {
+          return LoadingRoute().location;
+        }
+        if (subscriberState is AsyncError) {
+          return ErrorRoute(message: subscriberState.error.toString()).location;
+        }
         // final subscriberState = ref.watch(currentSubscriberProvider);
         // final isAtSubsriberHome =
         //     state.matchedLocation.startsWith(SubscriberRoute().location);

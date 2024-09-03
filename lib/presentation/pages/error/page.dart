@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_application_10/presentation/providers/current_app_provider.dart';
 
+import '../../providers/current_subscriber_provider.dart';
+
 class ErrorPage extends ConsumerWidget {
   final String message;
   const ErrorPage(this.message, {super.key});
@@ -14,16 +16,14 @@ class ErrorPage extends ConsumerWidget {
               child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Text('appError message is $message'),
+          Text('Error: $message'),
           FilledButton(
               onPressed: () {
-                ref.invalidate(currAppProviderProvider);
-
-                // if (message.contains('subscriber')) {
-                //   ref.invalidate(currentSubscriberProvider);
-                // } else {
-                //   ref.invalidate(currentAppProvider);
-                // }
+                if (message.toLowerCase().contains('subscriber')) {
+                  ref.invalidate(currSubscriberProvider);
+                } else {
+                  ref.invalidate(currAppProviderProvider);
+                }
               },
               child: const Text('retry'))
         ],

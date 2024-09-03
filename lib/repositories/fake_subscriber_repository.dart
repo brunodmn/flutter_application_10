@@ -5,7 +5,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 import '../models/subscriber.dart';
 part 'fake_subscriber_repository.g.dart';
 
-const double kProbabiltyOfError = 0.4;
+const double kProbabiltyOfError = 0.6;
 const int kDelayDuration = 1;
 
 class FakeSubscriberRepository {
@@ -14,48 +14,27 @@ class FakeSubscriberRepository {
     return Future.delayed(const Duration(seconds: kDelayDuration));
   }
 
-  Future<Subscriber> loginSubscriber(String appId,
-      {required String document, String? password}) async {
-    await waitSeconds();
-    try {
-      if (random.nextDouble() < kProbabiltyOfError) {
-        throw '[loginSubscriber] error';
-      }
-      return const Subscriber(id: '0', document: '0000');
-    } catch (e) {
-      rethrow;
-    }
-  }
-
   Future<Subscriber> fetchSubscriber(String appId,
       {required String document}) async {
     await waitSeconds();
-    try {
-      if (random.nextDouble() < kProbabiltyOfError) {
-        throw '[fetchSubscriber] error';
-      }
-      return const Subscriber(id: '0', document: '0000');
-    } catch (e) {
-      rethrow;
+    if (random.nextDouble() < kProbabiltyOfError) {
+      throw '[fetchSubscriber] error';
     }
+    return const Subscriber(id: '0', document: '0000');
   }
 
   Future<List<Billing>> fetchSubscriberBillings(String appId,
       {BillingSituation? situation}) async {
     await waitSeconds();
-    try {
-      if (random.nextDouble() < kProbabiltyOfError) {
-        throw '[fetchSubscriberBillings] error';
-      }
-      return List.generate(
-          5,
-          (index) => Billing(
-              id: index.toString(),
-              situation: situation ?? BillingSituation.due,
-              value: index * 100));
-    } catch (e) {
-      rethrow;
+    if (random.nextDouble() < kProbabiltyOfError) {
+      throw '[fetchSubscriberBillings] error';
     }
+    return List.generate(
+        5,
+        (index) => Billing(
+            id: index.toString(),
+            situation: situation ?? BillingSituation.due,
+            value: index * 100));
   }
 
   // @override
