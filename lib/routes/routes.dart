@@ -28,14 +28,9 @@ class HomeBillingsRoute extends GoRouteData {
 //* subscriber route [END]
 
 //* ROOT route [START]
-@TypedGoRoute<RootRoute>(path: '/', routes: [
-  TypedGoRoute<LoadingRoute>(
-    path: 'loading',
-  ),
-  TypedGoRoute<ErrorRoute>(
-    path: 'error',
-  ),
-])
+@TypedGoRoute<RootRoute>(
+  path: '/',
+)
 @immutable
 class RootRoute extends GoRouteData {
   @override
@@ -44,14 +39,9 @@ class RootRoute extends GoRouteData {
   }
 }
 
-@immutable
-class LoadingRoute extends GoRouteData {
-  @override
-  Widget build(BuildContext context, GoRouterState state) {
-    return const LoadingPage();
-  }
-}
-
+@TypedGoRoute<ErrorRoute>(
+  path: '/error',
+)
 @immutable
 class ErrorRoute extends GoRouteData {
   final String message;

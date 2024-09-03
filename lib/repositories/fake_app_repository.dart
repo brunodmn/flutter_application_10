@@ -5,7 +5,7 @@ import '../models/app.dart';
 
 part 'fake_app_repository.g.dart';
 
-const double kProbabiltyOfError = 0.3;
+const double kProbabiltyOfError = 0;
 const int kDelayDuration = 1;
 
 class FakeAppRepository {

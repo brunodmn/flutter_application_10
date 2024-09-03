@@ -9,6 +9,7 @@ part of 'routes.dart';
 List<RouteBase> get $appRoutes => [
       $homeRoute,
       $rootRoute,
+      $errorRoute,
     ];
 
 RouteBase get $homeRoute => GoRouteData.$route(
@@ -60,16 +61,6 @@ extension $HomeBillingsRouteExtension on HomeBillingsRoute {
 RouteBase get $rootRoute => GoRouteData.$route(
       path: '/',
       factory: $RootRouteExtension._fromState,
-      routes: [
-        GoRouteData.$route(
-          path: 'loading',
-          factory: $LoadingRouteExtension._fromState,
-        ),
-        GoRouteData.$route(
-          path: 'error',
-          factory: $ErrorRouteExtension._fromState,
-        ),
-      ],
     );
 
 extension $RootRouteExtension on RootRoute {
@@ -89,22 +80,10 @@ extension $RootRouteExtension on RootRoute {
   void replace(BuildContext context) => context.replace(location);
 }
 
-extension $LoadingRouteExtension on LoadingRoute {
-  static LoadingRoute _fromState(GoRouterState state) => LoadingRoute();
-
-  String get location => GoRouteData.$location(
-        '/loading',
-      );
-
-  void go(BuildContext context) => context.go(location);
-
-  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
-
-  void pushReplacement(BuildContext context) =>
-      context.pushReplacement(location);
-
-  void replace(BuildContext context) => context.replace(location);
-}
+RouteBase get $errorRoute => GoRouteData.$route(
+      path: '/error',
+      factory: $ErrorRouteExtension._fromState,
+    );
 
 extension $ErrorRouteExtension on ErrorRoute {
   static ErrorRoute _fromState(GoRouterState state) => ErrorRoute(

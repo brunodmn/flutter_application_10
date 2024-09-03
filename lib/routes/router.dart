@@ -10,7 +10,7 @@ import 'routes.dart';
 
 part 'router.g.dart';
 
-final GlobalKey<NavigatorState> rootNavigatorKey = GlobalKey<NavigatorState>();
+final GlobalKey<NavigatorState> _rootNavigatorKey = GlobalKey<NavigatorState>();
 
 @riverpod
 GoRouter router(RouterRef ref) {
@@ -20,7 +20,7 @@ GoRouter router(RouterRef ref) {
     initialLocation: RootRoute().location,
     redirect: (context, state) {
       if (appState is AsyncLoading) {
-        return LoadingRoute().location;
+        return RootRoute().location;
       }
       if (appState is AsyncError) {
         return ErrorRoute(message: appState.error.toString()).location;
@@ -38,45 +38,17 @@ GoRouter router(RouterRef ref) {
           return HomeRoute().location;
         }
         if (subscriberState is AsyncLoading) {
-          return LoadingRoute().location;
+          return RootRoute().location;
         }
         if (subscriberState is AsyncError) {
           return ErrorRoute(message: subscriberState.error.toString()).location;
         }
-        // final subscriberState = ref.watch(currentSubscriberProvider);
-        // final isAtSubsriberHome =
-        //     state.matchedLocation.startsWith(SubscriberRoute().location);
-        // // wont redirect if its in home or home sub rountes
-        // print(' state.matchedLocation ${state.matchedLocation}');
-        // print(' isAtSubsriberHome ${isAtSubsriberHome}');
-        // if (isAtSubsriberHome && (state is! SubscriberStateNotLoggedIn)) {
-        //   return null;
-        // }
-        // switch (subscriberState) {
-        //   case SubscriberStateLoading():
-        //     print('redirected');
-
-        //     return LoadingRoute().location;
-        //   case SubscriberStateNotLoggedIn():
-        //     print('redirected');
-
-        //     return SubscriberLoginRoute().location;
-        //   case SubscriberStateSuccess():
-        //     print('redirected');
-
-        //     return SubscriberRoute().location;
-        //   case SubscriberStateError():
-        //     print('redirected');
-
-        //     return ErrorRoute(message: subscriberState.appError.message)
-        //         .location;
-        // }
       }
 
       return null;
     },
     routes: $appRoutes,
-    navigatorKey: rootNavigatorKey,
+    navigatorKey: _rootNavigatorKey,
     errorBuilder: (context, state) {
       return ErrorPage(state.error.toString());
     },
